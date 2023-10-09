@@ -1,0 +1,14 @@
+Django==2.2.11
+django-braces==1.14.0
+django-crispy-forms==1.9.0
+django-gravatar2==1.4.4
+django-model-utils==4.0.0
+django-star-ratings==0.9.1
+django-widget-tweaks==1.4.8
+Pillow==10.0.1
+python-decouple==3.3
+pytz==2019.3
+six==1.15.0
+sqlparse==0.3.1
+swapper==1.1.2.post1
+djangorestframework==3.14.0

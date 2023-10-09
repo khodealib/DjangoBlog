@@ -1,0 +1,21 @@
+<div class="collapse navbar-collapse nav" id="navbarResponsive">
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'blog:home' %}">خانه</a>
+    </li>
+    {% for cat in category %}
+      {% if cat.parent == None %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'blog:category' cat.slug %}">{{cat.title}}</a>
+          {% if cat.children.active %}
+            {% include 'blog/partials/category_loop.html' %}
+          {% endif %}
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+  <form class="form-inline mt-3" action="{% url 'blog:search' %}">
+    <input type="text" name="q" class="form-control" placeholder="جستجوی متن">
+    <button class="btn btn-success" style="padding: 8px; border-radius: 5px; margin-right: 5px;">جستجو</button>
+  </form>
+</div>

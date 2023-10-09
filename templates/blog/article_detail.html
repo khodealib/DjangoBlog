@@ -1,0 +1,61 @@
+{% extends 'blog/base.html' %}
+{% load comment_tags %}
+{% load ratings %}
+{% load base_tags %}
+{% load humanize %}
+
+{% block title %}
+  {{object.title}}
+{% endblock %}
+
+{% block main %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{object.thumbnail.url}}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>{{object.title}}</h1>
+            {% if article.is_special %}
+              <span class="badge badge-danger" style="font-size: 14px;">ویژه</span>
+            {% endif %}
+            <time>{{object.publish|naturaltime}}</time>
+            <div>{% ratings object %}</div>
+            <div>بازدیدها: {{object.hits.count}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto text-justify">
+
+          <aside>
+            {% popular_articles %}
+            {% hot_articles %}
+          </aside>
+
+          {% if object.is_special %}
+            {% if user.is_authenticated and user.is_special_user or user == object.author or user.is_superuser %}
+              {{object.description|safe}}
+            {% else %}
+              {{article.description|striptags|truncatewords:30}}
+              <p class="alert alert-warning">این مقاله، ویژه است و برای مشاهده ی آن باید <a class="alert-link" href="#">اشتراک ویژه</a> تهیه بکنید.</p>
+            {% endif %}
+          {% else %}
+            {{object.description|safe}}
+          {% endif %}
+
+          {% render_comments object request %}
+          {% include_static_jquery %}
+          {% include_bootstrap %}
+        </div>
+      </div>
+    </div>
+  </article>
+{% endblock %}

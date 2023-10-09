@@ -1,0 +1,9 @@
+<p class="js-comment-content {% block c_text_cls %}mb-0{% endblock c_text_cls %}">
+    {% if text_2 %}
+        {{ text_1 }}
+        <span class="d-none">{{ text_2 }}</span>
+        <button class="js-read-more-btn btn btn-link btn-xs" style="font-size: 14px">ادامه ...</button>
+    {% else %}
+        {{ text_1 }}
+    {% endif %}
+</p>
